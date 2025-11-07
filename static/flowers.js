@@ -1,9 +1,13 @@
 // Canvas-based cute flower drawing
 const flowerCanvas = document.getElementById('flowerCanvas');
-const ctx = flowerCanvas.getContext('2d');
 
-flowerCanvas.width = 600;
-flowerCanvas.height = 600;
+if (!flowerCanvas) {
+    console.error('Flower canvas not found!');
+} else {
+    const ctx = flowerCanvas.getContext('2d');
+
+    flowerCanvas.width = 600;
+    flowerCanvas.height = 600;
 
 class CuteFlower {
     constructor(x, y, size, petalColor, centerColor) {
@@ -233,17 +237,18 @@ const hearts = [
     new Heart(480, 360, 0.6, '#FFE4E1'),
 ];
 
-// Animation loop
-function animateFlowers() {
-    ctx.clearRect(0, 0, flowerCanvas.width, flowerCanvas.height);
-    
-    // Draw in order
-    stems.forEach(stem => stem.draw(ctx));
-    leaves.forEach(leaf => leaf.draw(ctx));
-    flowers.forEach(flower => flower.draw(ctx));
-    hearts.forEach(heart => heart.draw(ctx));
-    
-    requestAnimationFrame(animateFlowers);
-}
+    // Animation loop
+    function animateFlowers() {
+        ctx.clearRect(0, 0, flowerCanvas.width, flowerCanvas.height);
+        
+        // Draw in order
+        stems.forEach(stem => stem.draw(ctx));
+        leaves.forEach(leaf => leaf.draw(ctx));
+        flowers.forEach(flower => flower.draw(ctx));
+        hearts.forEach(heart => heart.draw(ctx));
+        
+        requestAnimationFrame(animateFlowers);
+    }
 
-animateFlowers();
+    animateFlowers();
+}
