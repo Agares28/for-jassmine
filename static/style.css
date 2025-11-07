@@ -1,0 +1,664 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.flower-scene {
+    perspective: 1200px;
+    margin-bottom: 50px;
+}
+
+#flowerCanvas {
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+    animation: canvasFloat 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes canvasFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.bouquet-wrapper {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    animation: gentleSway 6s ease-in-out infinite;
+}
+
+@keyframes gentleSway {
+    0%, 100% { transform: rotate(-2deg) translateY(0); }
+    50% { transform: rotate(2deg) translateY(-15px); }
+}
+
+.bouquet-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Vase/Wrap */
+.bouquet-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 150px;
+    background: linear-gradient(to bottom, #f5e6d3 0%, #d4c5b0 100%);
+    clip-path: polygon(30% 0%, 70% 0%, 85% 100%, 15% 100%);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    z-index: 1;
+}
+
+.ribbon {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    background: linear-gradient(to right, #ff1493, #ff69b4, #ff1493);
+    box-shadow: 0 3px 10px rgba(255,20,147,0.5);
+}
+
+.ribbon-bow {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bow-left, .bow-right {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle at 30% 30%, #ff69b4, #ff1493);
+    border-radius: 50% 0;
+    box-shadow: 0 3px 10px rgba(255,20,147,0.4);
+}
+
+.bow-left {
+    left: -35px;
+    transform: rotate(-45deg);
+}
+
+.bow-right {
+    right: -35px;
+    transform: rotate(45deg);
+}
+
+.bow-center {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle, #ff1493, #c71585);
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 8px rgba(255,20,147,0.6);
+}
+
+/* Roses */
+.rose {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+
+.rose-1 {
+    left: 50%;
+    top: 80px;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.rose-2 {
+    left: 25%;
+    top: 120px;
+    transform: rotate(-15deg) scale(0.9);
+    z-index: 8;
+}
+
+.rose-3 {
+    right: 15%;
+    top: 110px;
+    transform: rotate(20deg) scale(0.9);
+    z-index: 8;
+}
+
+.rose-4 {
+    left: 10%;
+    top: 160px;
+    transform: rotate(-25deg) scale(0.75);
+    z-index: 6;
+}
+
+.rose-5 {
+    right: 5%;
+    top: 150px;
+    transform: rotate(30deg) scale(0.75);
+    z-index: 6;
+}
+
+.stem {
+    position: absolute;
+    width: 6px;
+    height: 180px;
+    background: linear-gradient(to right, #2d5016, #4a7c28, #2d5016);
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+}
+
+.rose-bloom {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    animation: bloom 4s ease-in-out infinite;
+}
+
+@keyframes bloom {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Simple beautiful petals */
+.petal-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.outer-ring {
+    animation: spin 20s linear infinite;
+}
+
+.middle-ring {
+    transform: translate(-50%, -50%) scale(0.6);
+    animation: spin 20s linear infinite reverse;
+}
+
+.inner-ring {
+    transform: translate(-50%, -50%) scale(0.35);
+}
+
+@keyframes spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.rose-petal {
+    position: absolute;
+    width: 45px;
+    height: 60px;
+    background: radial-gradient(ellipse at 30% 30%, 
+        rgba(255,255,255,0.5) 0%, 
+        #ff69b4 30%, 
+        #ff1493 70%, 
+        #c71585 100%);
+    border-radius: 50% 50% 50% 0;
+    left: 50%;
+    top: 50%;
+    transform-origin: 0% 100%;
+    box-shadow: 
+        inset -3px -3px 8px rgba(0,0,0,0.2),
+        0 5px 15px rgba(255,20,147,0.4);
+}
+
+.rose-petal.outer {
+    width: 50px;
+    height: 65px;
+}
+
+.rose-petal.middle {
+    width: 45px;
+    height: 55px;
+    background: radial-gradient(ellipse at 30% 30%, 
+        rgba(255,255,255,0.4) 0%, 
+        #ff85c1 30%, 
+        #ff69b4 70%, 
+        #ff1493 100%);
+}
+
+.rose-petal.inner {
+    width: 40px;
+    height: 50px;
+    background: radial-gradient(ellipse at 30% 30%, 
+        rgba(255,255,255,0.3) 0%, 
+        #ffb3d9 30%, 
+        #ff85c1 70%, 
+        #ff69b4 100%);
+}
+
+/* Outer petals - 5 petals */
+.outer-ring .rose-petal:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(0deg) translateY(-35px);
+}
+.outer-ring .rose-petal:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(72deg) translateY(-35px);
+}
+.outer-ring .rose-petal:nth-child(3) {
+    transform: translate(-50%, -50%) rotate(144deg) translateY(-35px);
+}
+.outer-ring .rose-petal:nth-child(4) {
+    transform: translate(-50%, -50%) rotate(216deg) translateY(-35px);
+}
+.outer-ring .rose-petal:nth-child(5) {
+    transform: translate(-50%, -50%) rotate(288deg) translateY(-35px);
+}
+
+/* Middle petals - 4 petals */
+.middle-ring .rose-petal:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(45deg) translateY(-30px);
+}
+.middle-ring .rose-petal:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(135deg) translateY(-30px);
+}
+.middle-ring .rose-petal:nth-child(3) {
+    transform: translate(-50%, -50%) rotate(225deg) translateY(-30px);
+}
+.middle-ring .rose-petal:nth-child(4) {
+    transform: translate(-50%, -50%) rotate(315deg) translateY(-30px);
+}
+
+/* Inner petals - 3 petals */
+.inner-ring .rose-petal:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(0deg) translateY(-25px);
+}
+.inner-ring .rose-petal:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(120deg) translateY(-25px);
+}
+.inner-ring .rose-petal:nth-child(3) {
+    transform: translate(-50%, -50%) rotate(240deg) translateY(-25px);
+}
+
+.rose-center {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle at 30% 30%, 
+        rgba(255,255,255,0.4), 
+        #ff1493 40%, 
+        #c71585);
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 
+        inset -2px -2px 5px rgba(0,0,0,0.3),
+        0 0 20px rgba(255,20,147,0.6);
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: inset -2px -2px 5px rgba(0,0,0,0.3), 0 0 20px rgba(255,20,147,0.6); }
+    50% { box-shadow: inset -2px -2px 5px rgba(0,0,0,0.3), 0 0 30px rgba(255,20,147,0.9); }
+}
+
+/* Leaves */
+.bouquet-leaves {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.leaf {
+    position: absolute;
+    width: 40px;
+    height: 25px;
+    background: radial-gradient(ellipse at 25% 25%, 
+        rgba(255,255,255,0.3), 
+        #5a9234 40%, 
+        #3d6b1f);
+    border-radius: 0 50% 50% 0;
+    box-shadow: 
+        inset -2px -2px 5px rgba(0,0,0,0.3),
+        2px 2px 8px rgba(0,0,0,0.3);
+}
+
+.leaf::after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background: rgba(255,255,255,0.3);
+    left: 50%;
+    top: 0;
+}
+
+.leaf-1 { left: 30%; top: 180px; transform: rotate(-30deg); z-index: 9; }
+.leaf-2 { right: 35%; top: 170px; transform: rotate(35deg) scaleX(-1); z-index: 9; }
+.leaf-3 { left: 15%; top: 210px; transform: rotate(-40deg); z-index: 7; }
+.leaf-4 { right: 20%; top: 200px; transform: rotate(40deg) scaleX(-1); z-index: 7; }
+.leaf-5 { left: 40%; top: 190px; transform: rotate(-20deg); z-index: 8; }
+.leaf-6 { right: 45%; top: 185px; transform: rotate(25deg) scaleX(-1); z-index: 8; }
+
+.title-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.glitch {
+    font-size: 4em;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255,255,255,0.5);
+    animation: glitchText 3s infinite;
+}
+
+@keyframes glitchText {
+    0%, 90%, 100% { transform: translate(0); }
+    92% { transform: translate(-2px, 2px); }
+    94% { transform: translate(2px, -2px); }
+    96% { transform: translate(-2px, -2px); }
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: rgba(255,255,255,0.9);
+    margin-top: 10px;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modern-btn {
+    position: relative;
+    padding: 18px 60px;
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #ff6b9d, #c44569);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 40px rgba(255,107,157,0.4);
+}
+
+.modern-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(255,107,157,0.6);
+}
+
+.btn-text {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.modern-btn:hover .btn-glow {
+    left: 100%;
+}
+
+.message-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 1000;
+}
+
+.message-modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 252, 0.95) 100%);
+    padding: 50px;
+    border-radius: 25px;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    position: relative;
+    animation: modalSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 182, 193, 0.2);
+}
+
+.modal-content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff69b4, #ff1493, #ff69b4, #ff1493, #ff69b4);
+    background-size: 200% 100%;
+    border-radius: 25px 25px 0 0;
+    animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes modalSlideUp {
+    0% { 
+        transform: translateY(100px) scale(0.9); 
+        opacity: 0; 
+    }
+    60% {
+        transform: translateY(-10px) scale(1.01);
+    }
+    100% { 
+        transform: translateY(0) scale(1); 
+        opacity: 1; 
+    }
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 105, 180, 0.1);
+    border: 2px solid rgba(255, 105, 180, 0.2);
+    border-radius: 50%;
+    color: #ff69b4;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: rgba(255, 105, 180, 0.2);
+    border-color: #ff69b4;
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+
+.close-btn:active {
+    transform: rotate(90deg) scale(0.95);
+}
+
+.message-text {
+    color: #333;
+    line-height: 1.8;
+    position: relative;
+}
+
+.message-text::before {
+    content: '✨';
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2em;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { 
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+    50% { 
+        opacity: 0.6;
+        transform: translateX(-50%) scale(1.2);
+    }
+}
+
+.message-text p {
+    margin-bottom: 20px;
+    font-size: 1.05em;
+    opacity: 0;
+    animation: slideInLeft 0.8s ease-out forwards;
+    padding: 12px 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.message-text p::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #ff69b4, #ff1493);
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.message-text p::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    transition: left 0.5s ease;
+}
+
+.message-text p:hover {
+    background: rgba(255, 182, 193, 0.1);
+    transform: translateX(5px) scale(1.02);
+}
+
+.message-text p:hover::before {
+    opacity: 1;
+}
+
+.message-text p:hover::after {
+    left: 100%;
+}
+
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.message-modal.show .message-text p:nth-child(1) { animation-delay: 0.1s; }
+.message-modal.show .message-text p:nth-child(2) { animation-delay: 0.2s; }
+.message-modal.show .message-text p:nth-child(3) { animation-delay: 0.3s; }
+.message-modal.show .message-text p:nth-child(4) { animation-delay: 0.4s; }
+.message-modal.show .message-text p:nth-child(5) { animation-delay: 0.5s; }
+.message-modal.show .message-text p:nth-child(6) { animation-delay: 0.6s; }
+.message-modal.show .message-text p:nth-child(7) { animation-delay: 0.7s; }
+
+@keyframes fadeInText {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .bouquet-wrapper {
+        width: 350px;
+        height: 400px;
+    }
+    
+    .glitch {
+        font-size: 2.5em;
+    }
+    
+    .modal-content {
+        padding: 30px;
+        margin: 20px;
+    }
+}
