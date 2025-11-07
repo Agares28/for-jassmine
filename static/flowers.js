@@ -6,8 +6,8 @@ if (!flowerCanvas) {
 } else {
     const ctx = flowerCanvas.getContext('2d');
 
-    flowerCanvas.width = 600;
-    flowerCanvas.height = 600;
+    flowerCanvas.width = 400;
+    flowerCanvas.height = 350;
 
 class CuteFlower {
     constructor(x, y, size, petalColor, centerColor) {
@@ -206,35 +206,35 @@ class Heart {
     }
 }
 
-// Create flowers - bigger and centered
+// Create flowers - smaller and elegant
 const flowers = [
-    new CuteFlower(300, 180, 1.8, '#FFD700', '#8B4513'), // Yellow sunflower (center)
-    new CuteFlower(200, 240, 1.4, '#FFA500', '#8B4513'), // Orange flower (left)
-    new CuteFlower(400, 260, 1.3, '#FFB6C1', '#FF69B4'), // Pink flower (right)
+    new CuteFlower(200, 100, 0.9, '#FFD700', '#8B4513'), // Yellow sunflower (center)
+    new CuteFlower(130, 130, 0.75, '#FFA500', '#8B4513'), // Orange flower (left)
+    new CuteFlower(270, 120, 0.7, '#FFB6C1', '#FF69B4'), // Pink flower (right)
 ];
 
 const stems = [
-    new Stem(300, 260, 280, -15),
-    new Stem(200, 300, 240, 20),
-    new Stem(400, 320, 220, -10),
+    new Stem(200, 150, 180, -10),
+    new Stem(130, 170, 160, 15),
+    new Stem(270, 160, 170, -8),
 ];
 
 const leaves = [
-    new Leaf(270, 360, 1.2, -0.5),
-    new Leaf(330, 370, 1.2, 0.5),
-    new Leaf(180, 400, 1.1, -0.6),
-    new Leaf(420, 410, 1.1, 0.6),
-    new Leaf(240, 420, 1, -0.4),
-    new Leaf(380, 430, 1, 0.4),
+    new Leaf(180, 220, 0.9, -0.5),
+    new Leaf(220, 230, 0.9, 0.5),
+    new Leaf(115, 250, 0.8, -0.6),
+    new Leaf(280, 240, 0.8, 0.6),
+    new Leaf(160, 260, 0.75, -0.4),
+    new Leaf(250, 265, 0.75, 0.4),
 ];
 
 const hearts = [
-    new Heart(150, 280, 0.8, '#FFB6C1'),
-    new Heart(450, 320, 0.7, '#FFB6C1'),
-    new Heart(170, 360, 0.6, '#FFC0CB'),
-    new Heart(430, 380, 0.7, '#FFC0CB'),
-    new Heart(120, 320, 0.5, '#FFE4E1'),
-    new Heart(480, 360, 0.6, '#FFE4E1'),
+    new Heart(90, 160, 0.5, '#FFB6C1'),
+    new Heart(310, 170, 0.45, '#FFB6C1'),
+    new Heart(100, 210, 0.4, '#FFC0CB'),
+    new Heart(300, 200, 0.45, '#FFC0CB'),
+    new Heart(70, 190, 0.35, '#FFE4E1'),
+    new Heart(330, 185, 0.4, '#FFE4E1'),
 ];
 
     // Animation loop
