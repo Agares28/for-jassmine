@@ -139,26 +139,31 @@ class Tree {
     createBranches() {
         const branches = [];
         
-        // Main trunk
-        branches.push(new Branch(this.x, this.baseY, this.x, 200, 15));
+        // Main trunk - thicker and taller
+        branches.push(new Branch(this.x, this.baseY, this.x, 180, 20));
         
-        // Major branches
-        branches.push(new Branch(this.x, 200, this.x - 60, 150, 10));
-        branches.push(new Branch(this.x, 200, this.x + 60, 150, 10));
-        branches.push(new Branch(this.x, 220, this.x - 40, 180, 8));
-        branches.push(new Branch(this.x, 220, this.x + 40, 180, 8));
+        // Major branches - closer together
+        branches.push(new Branch(this.x, 180, this.x - 50, 140, 12));
+        branches.push(new Branch(this.x, 180, this.x + 50, 140, 12));
+        branches.push(new Branch(this.x, 200, this.x - 45, 160, 10));
+        branches.push(new Branch(this.x, 200, this.x + 45, 160, 10));
+        branches.push(new Branch(this.x, 220, this.x - 35, 190, 9));
+        branches.push(new Branch(this.x, 220, this.x + 35, 190, 9));
         
-        // Smaller branches
-        branches.push(new Branch(this.x - 60, 150, this.x - 100, 120, 6));
-        branches.push(new Branch(this.x - 60, 150, this.x - 80, 100, 6));
-        branches.push(new Branch(this.x + 60, 150, this.x + 100, 120, 6));
-        branches.push(new Branch(this.x + 60, 150, this.x + 80, 100, 6));
+        // Secondary branches
+        branches.push(new Branch(this.x - 50, 140, this.x - 80, 110, 8));
+        branches.push(new Branch(this.x - 50, 140, this.x - 70, 120, 7));
+        branches.push(new Branch(this.x + 50, 140, this.x + 80, 110, 8));
+        branches.push(new Branch(this.x + 50, 140, this.x + 70, 120, 7));
         
-        // Tiny branches
-        branches.push(new Branch(this.x - 100, 120, this.x - 120, 100, 4));
-        branches.push(new Branch(this.x - 100, 120, this.x - 110, 90, 4));
-        branches.push(new Branch(this.x + 100, 120, this.x + 120, 100, 4));
-        branches.push(new Branch(this.x + 100, 120, this.x + 110, 90, 4));
+        branches.push(new Branch(this.x - 45, 160, this.x - 75, 135, 7));
+        branches.push(new Branch(this.x + 45, 160, this.x + 75, 135, 7));
+        
+        // Small branches for fullness
+        branches.push(new Branch(this.x - 80, 110, this.x - 100, 90, 5));
+        branches.push(new Branch(this.x - 80, 110, this.x - 95, 100, 5));
+        branches.push(new Branch(this.x + 80, 110, this.x + 100, 90, 5));
+        branches.push(new Branch(this.x + 80, 110, this.x + 95, 100, 5));
         
         return branches;
     }
@@ -213,38 +218,66 @@ class FallingPetal {
 // Create cherry blossom tree
 const tree = new Tree();
 
-// Create cherry blossoms on branches
+// Create cherry blossoms on branches - bigger and more clustered
 const blossoms = [
-    // Top branches
-    new CherryBlossom(110, 90, 1.2),
-    new CherryBlossom(130, 95, 1.0),
-    new CherryBlossom(120, 100, 0.9),
-    new CherryBlossom(290, 90, 1.2),
-    new CherryBlossom(270, 95, 1.0),
-    new CherryBlossom(280, 100, 0.9),
+    // Top left clusters
+    new CherryBlossom(100, 90, 2.5),
+    new CherryBlossom(105, 95, 2.2),
+    new CherryBlossom(110, 92, 2.3),
+    new CherryBlossom(95, 95, 2.0),
+    new CherryBlossom(108, 88, 2.1),
     
-    // Middle branches
-    new CherryBlossom(80, 100, 1.1),
-    new CherryBlossom(90, 110, 0.95),
-    new CherryBlossom(100, 120, 1.0),
-    new CherryBlossom(320, 100, 1.1),
-    new CherryBlossom(310, 110, 0.95),
-    new CherryBlossom(300, 120, 1.0),
+    // Top right clusters
+    new CherryBlossom(300, 90, 2.5),
+    new CherryBlossom(295, 95, 2.2),
+    new CherryBlossom(290, 92, 2.3),
+    new CherryBlossom(305, 95, 2.0),
+    new CherryBlossom(292, 88, 2.1),
     
-    // Lower branches
-    new CherryBlossom(140, 150, 1.0),
-    new CherryBlossom(150, 160, 0.9),
-    new CherryBlossom(160, 170, 1.1),
-    new CherryBlossom(260, 150, 1.0),
-    new CherryBlossom(250, 160, 0.9),
-    new CherryBlossom(240, 170, 1.1),
+    // Left side clusters
+    new CherryBlossom(120, 110, 2.4),
+    new CherryBlossom(125, 115, 2.1),
+    new CherryBlossom(130, 112, 2.2),
+    new CherryBlossom(118, 118, 2.0),
     
-    // Center clusters
-    new CherryBlossom(180, 180, 1.0),
-    new CherryBlossom(190, 185, 0.95),
-    new CherryBlossom(200, 180, 1.1),
-    new CherryBlossom(210, 185, 0.95),
-    new CherryBlossom(220, 180, 1.0),
+    new CherryBlossom(150, 140, 2.3),
+    new CherryBlossom(155, 145, 2.0),
+    new CherryBlossom(148, 148, 2.1),
+    new CherryBlossom(158, 142, 1.9),
+    
+    // Right side clusters
+    new CherryBlossom(280, 110, 2.4),
+    new CherryBlossom(275, 115, 2.1),
+    new CherryBlossom(270, 112, 2.2),
+    new CherryBlossom(282, 118, 2.0),
+    
+    new CherryBlossom(250, 140, 2.3),
+    new CherryBlossom(245, 145, 2.0),
+    new CherryBlossom(252, 148, 2.1),
+    new CherryBlossom(242, 142, 1.9),
+    
+    // Middle clusters
+    new CherryBlossom(155, 160, 2.2),
+    new CherryBlossom(160, 165, 2.0),
+    new CherryBlossom(165, 162, 2.1),
+    
+    new CherryBlossom(245, 160, 2.2),
+    new CherryBlossom(240, 165, 2.0),
+    new CherryBlossom(235, 162, 2.1),
+    
+    // Lower clusters
+    new CherryBlossom(165, 190, 2.1),
+    new CherryBlossom(170, 195, 1.9),
+    new CherryBlossom(175, 192, 2.0),
+    
+    new CherryBlossom(235, 190, 2.1),
+    new CherryBlossom(230, 195, 1.9),
+    new CherryBlossom(225, 192, 2.0),
+    
+    // Center top
+    new CherryBlossom(195, 180, 2.2),
+    new CherryBlossom(200, 175, 2.3),
+    new CherryBlossom(205, 180, 2.2),
 ];
 
 // Create falling petals
