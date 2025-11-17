@@ -1,4 +1,4 @@
-// Canvas-based cute flower drawing
+// Canvas-based cherry blossom tree with snow
 const flowerCanvas = document.getElementById('flowerCanvas');
 
 if (!flowerCanvas) {
@@ -9,132 +9,189 @@ if (!flowerCanvas) {
     flowerCanvas.width = 400;
     flowerCanvas.height = 350;
 
-class CuteFlower {
-    constructor(x, y, size, petalColor, centerColor) {
+class CherryBlossom {
+    constructor(x, y, size) {
         this.x = x;
         this.y = y;
         this.size = size;
-        this.petalColor = petalColor;
-        this.centerColor = centerColor;
         this.time = Math.random() * Math.PI * 2;
         this.petalCount = 5;
-        this.petalTimes = Array(this.petalCount).fill(0).map(() => Math.random() * Math.PI * 2);
+        this.rotation = Math.random() * Math.PI * 2;
     }
 
     draw(ctx) {
         ctx.save();
         ctx.translate(this.x, this.y);
         
-        // Animate flower sway
+        // Gentle rotation animation
         this.time += 0.02;
-        const sway = Math.sin(this.time) * 3;
-        ctx.rotate(sway * 0.01);
+        this.rotation += 0.01;
+        ctx.rotate(this.rotation);
         
         const scale = this.size;
         ctx.scale(scale, scale);
         
-        // Draw petals with individual animation
+        // Draw cherry blossom petals
         for (let i = 0; i < this.petalCount; i++) {
             const angle = (Math.PI * 2 / this.petalCount) * i;
             
-            // Update petal animation
-            this.petalTimes[i] += 0.03 + (i * 0.005);
-            const petalWave = Math.sin(this.petalTimes[i]) * 0.15;
-            const petalScale = 1 + Math.sin(this.petalTimes[i] * 0.8) * 0.1;
-            
             ctx.save();
-            ctx.rotate(angle + petalWave);
-            ctx.scale(petalScale, petalScale);
+            ctx.rotate(angle);
             
-            // Petal
-            ctx.fillStyle = this.petalColor;
+            // Petal - heart-shaped
+            ctx.fillStyle = '#FFB7C5';
             ctx.beginPath();
-            ctx.ellipse(0, -35, 25, 35, 0, 0, Math.PI * 2);
+            ctx.moveTo(0, -8);
+            ctx.bezierCurveTo(-4, -12, -8, -10, -8, -6);
+            ctx.bezierCurveTo(-8, -3, -4, 0, 0, 2);
+            ctx.bezierCurveTo(4, 0, 8, -3, 8, -6);
+            ctx.bezierCurveTo(8, -10, 4, -12, 0, -8);
+            ctx.closePath();
             ctx.fill();
             
             // Petal outline
-            ctx.strokeStyle = 'rgba(0, 0, 0, 0.15)';
-            ctx.lineWidth = 2;
+            ctx.strokeStyle = 'rgba(255, 182, 193, 0.8)';
+            ctx.lineWidth = 0.5;
             ctx.stroke();
-            
-            // Petal highlight
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-            ctx.beginPath();
-            ctx.ellipse(-5, -40, 8, 12, 0, 0, Math.PI * 2);
-            ctx.fill();
             
             ctx.restore();
         }
         
-        // Center circle
-        ctx.fillStyle = this.centerColor;
+        // Center
+        ctx.fillStyle = '#FFE4E1';
         ctx.beginPath();
-        ctx.arc(0, 0, 28, 0, Math.PI * 2);
+        ctx.arc(0, 0, 2, 0, Math.PI * 2);
         ctx.fill();
-        
-        // Center outline
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.lineWidth = 3;
-        ctx.stroke();
-        
-        // Center highlight
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-        ctx.beginPath();
-        ctx.arc(-7, -7, 12, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Center dots (for sunflower effect)
-        if (this.centerColor === '#8B4513') {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-            for (let i = 0; i < 8; i++) {
-                const dotAngle = (Math.PI * 2 / 8) * i;
-                const dotX = Math.cos(dotAngle) * 12;
-                const dotY = Math.sin(dotAngle) * 12;
-                ctx.beginPath();
-                ctx.arc(dotX, dotY, 3, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
         
         ctx.restore();
     }
 }
 
-class Stem {
-    constructor(x, y, height, curve) {
-        this.x = x;
-        this.y = y;
-        this.height = height;
-        this.curve = curve || 0;
+class Snowflake {
+    constructor() {
+        this.reset();
+        this.y = Math.random() * flowerCanvas.height;
+    }
+
+    reset() {
+        this.x = Math.random() * flowerCanvas.width;
+        this.y = -10;
+        this.size = Math.random() * 3 + 1;
+        this.speed = Math.random() * 1 + 0.5;
+        this.drift = Math.random() * 0.5 - 0.25;
+    }
+
+    update() {
+        this.y += this.speed;
+        this.x += this.drift;
+        
+        if (this.y > flowerCanvas.height) {
+            this.reset();
+        }
+    }
+
+    draw(ctx) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+class Branch {
+    constructor(startX, startY, endX, endY, thickness) {
+        this.startX = startX;
+        this.startY = startY;
+        this.endX = endX;
+        this.endY = endY;
+        this.thickness = thickness;
+        this.time = Math.random() * Math.PI * 2;
     }
 
     draw(ctx) {
         ctx.save();
         
-        ctx.strokeStyle = '#5a9234';
-        ctx.lineWidth = 8;
+        // Gentle swaying animation
+        this.time += 0.01;
+        const sway = Math.sin(this.time) * 2;
+        
+        ctx.strokeStyle = '#4A3728';
+        ctx.lineWidth = this.thickness;
         ctx.lineCap = 'round';
         
         ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.quadraticCurveTo(
-            this.x + this.curve,
-            this.y + this.height / 2,
-            this.x,
-            this.y + this.height
-        );
+        ctx.moveTo(this.startX, this.startY);
+        ctx.lineTo(this.endX + sway, this.endY);
         ctx.stroke();
         
         ctx.restore();
     }
 }
 
-class Leaf {
-    constructor(x, y, size, rotation) {
-        this.x = x;
-        this.y = y;
-        this.size = size;
-        this.rotation = rotation;
+class Tree {
+    constructor() {
+        this.x = 200;
+        this.baseY = 350;
+        this.time = 0;
+        this.branches = this.createBranches();
+    }
+
+    createBranches() {
+        const branches = [];
+        
+        // Main trunk
+        branches.push(new Branch(this.x, this.baseY, this.x, 200, 15));
+        
+        // Major branches
+        branches.push(new Branch(this.x, 200, this.x - 60, 150, 10));
+        branches.push(new Branch(this.x, 200, this.x + 60, 150, 10));
+        branches.push(new Branch(this.x, 220, this.x - 40, 180, 8));
+        branches.push(new Branch(this.x, 220, this.x + 40, 180, 8));
+        
+        // Smaller branches
+        branches.push(new Branch(this.x - 60, 150, this.x - 100, 120, 6));
+        branches.push(new Branch(this.x - 60, 150, this.x - 80, 100, 6));
+        branches.push(new Branch(this.x + 60, 150, this.x + 100, 120, 6));
+        branches.push(new Branch(this.x + 60, 150, this.x + 80, 100, 6));
+        
+        // Tiny branches
+        branches.push(new Branch(this.x - 100, 120, this.x - 120, 100, 4));
+        branches.push(new Branch(this.x - 100, 120, this.x - 110, 90, 4));
+        branches.push(new Branch(this.x + 100, 120, this.x + 120, 100, 4));
+        branches.push(new Branch(this.x + 100, 120, this.x + 110, 90, 4));
+        
+        return branches;
+    }
+
+    draw(ctx) {
+        this.branches.forEach(branch => branch.draw(ctx));
+    }
+}
+
+class FallingPetal {
+    constructor() {
+        this.reset();
+        this.y = Math.random() * flowerCanvas.height;
+    }
+
+    reset() {
+        this.x = Math.random() * flowerCanvas.width;
+        this.y = -20;
+        this.size = Math.random() * 0.5 + 0.3;
+        this.speed = Math.random() * 1 + 0.5;
+        this.drift = Math.random() * 2 - 1;
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotationSpeed = Math.random() * 0.05 - 0.025;
+    }
+
+    update() {
+        this.y += this.speed;
+        this.x += this.drift;
+        this.rotation += this.rotationSpeed;
+        
+        if (this.y > flowerCanvas.height) {
+            this.reset();
+        }
     }
 
     draw(ctx) {
@@ -143,112 +200,94 @@ class Leaf {
         ctx.rotate(this.rotation);
         ctx.scale(this.size, this.size);
         
-        // Leaf shape
-        ctx.fillStyle = '#5a9234';
+        // Draw simple petal
+        ctx.fillStyle = 'rgba(255, 183, 197, 0.7)';
         ctx.beginPath();
-        ctx.ellipse(0, 0, 25, 15, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, 0, 8, 4, 0, 0, Math.PI * 2);
         ctx.fill();
-        
-        // Leaf outline
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.15)';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-        
-        // Leaf vein
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(-15, 0);
-        ctx.lineTo(15, 0);
-        ctx.stroke();
         
         ctx.restore();
     }
 }
 
-class Heart {
-    constructor(x, y, size, color) {
-        this.x = x;
-        this.y = y;
-        this.size = size;
-        this.color = color;
-        this.time = Math.random() * Math.PI * 2;
-    }
+// Create cherry blossom tree
+const tree = new Tree();
 
-    draw(ctx) {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        
-        // Animate floating
-        this.time += 0.03;
-        const float = Math.sin(this.time) * 5;
-        ctx.translate(0, float);
-        
-        ctx.scale(this.size, this.size);
-        
-        // Draw heart
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.bezierCurveTo(-10, -10, -20, -5, -20, 5);
-        ctx.bezierCurveTo(-20, 15, 0, 25, 0, 25);
-        ctx.bezierCurveTo(0, 25, 20, 15, 20, 5);
-        ctx.bezierCurveTo(20, -5, 10, -10, 0, 0);
-        ctx.closePath();
-        ctx.fill();
-        
-        // Heart outline
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-        
-        ctx.restore();
-    }
+// Create cherry blossoms on branches
+const blossoms = [
+    // Top branches
+    new CherryBlossom(110, 90, 1.2),
+    new CherryBlossom(130, 95, 1.0),
+    new CherryBlossom(120, 100, 0.9),
+    new CherryBlossom(290, 90, 1.2),
+    new CherryBlossom(270, 95, 1.0),
+    new CherryBlossom(280, 100, 0.9),
+    
+    // Middle branches
+    new CherryBlossom(80, 100, 1.1),
+    new CherryBlossom(90, 110, 0.95),
+    new CherryBlossom(100, 120, 1.0),
+    new CherryBlossom(320, 100, 1.1),
+    new CherryBlossom(310, 110, 0.95),
+    new CherryBlossom(300, 120, 1.0),
+    
+    // Lower branches
+    new CherryBlossom(140, 150, 1.0),
+    new CherryBlossom(150, 160, 0.9),
+    new CherryBlossom(160, 170, 1.1),
+    new CherryBlossom(260, 150, 1.0),
+    new CherryBlossom(250, 160, 0.9),
+    new CherryBlossom(240, 170, 1.1),
+    
+    // Center clusters
+    new CherryBlossom(180, 180, 1.0),
+    new CherryBlossom(190, 185, 0.95),
+    new CherryBlossom(200, 180, 1.1),
+    new CherryBlossom(210, 185, 0.95),
+    new CherryBlossom(220, 180, 1.0),
+];
+
+// Create falling petals
+const fallingPetals = [];
+for (let i = 0; i < 15; i++) {
+    fallingPetals.push(new FallingPetal());
 }
 
-// Create flowers - smaller and elegant
-const flowers = [
-    new CuteFlower(200, 100, 0.9, '#FFD700', '#8B4513'), // Yellow sunflower (center)
-    new CuteFlower(130, 130, 0.75, '#FFA500', '#8B4513'), // Orange flower (left)
-    new CuteFlower(270, 120, 0.7, '#FFB6C1', '#FF69B4'), // Pink flower (right)
-];
-
-const stems = [
-    new Stem(200, 150, 180, -10),
-    new Stem(130, 170, 160, 15),
-    new Stem(270, 160, 170, -8),
-];
-
-const leaves = [
-    new Leaf(180, 220, 0.9, -0.5),
-    new Leaf(220, 230, 0.9, 0.5),
-    new Leaf(115, 250, 0.8, -0.6),
-    new Leaf(280, 240, 0.8, 0.6),
-    new Leaf(160, 260, 0.75, -0.4),
-    new Leaf(250, 265, 0.75, 0.4),
-];
-
-const hearts = [
-    new Heart(90, 160, 0.5, '#FFB6C1'),
-    new Heart(310, 170, 0.45, '#FFB6C1'),
-    new Heart(100, 210, 0.4, '#FFC0CB'),
-    new Heart(300, 200, 0.45, '#FFC0CB'),
-    new Heart(70, 190, 0.35, '#FFE4E1'),
-    new Heart(330, 185, 0.4, '#FFE4E1'),
-];
+// Create snowflakes
+const snowflakes = [];
+for (let i = 0; i < 50; i++) {
+    snowflakes.push(new Snowflake());
+}
 
     // Animation loop
-    function animateFlowers() {
-        ctx.clearRect(0, 0, flowerCanvas.width, flowerCanvas.height);
+    function animate() {
+        // Create gradient background (winter sky)
+        const gradient = ctx.createLinearGradient(0, 0, 0, flowerCanvas.height);
+        gradient.addColorStop(0, '#E8F4F8');
+        gradient.addColorStop(1, '#D4E9F7');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, flowerCanvas.width, flowerCanvas.height);
         
-        // Draw in order
-        stems.forEach(stem => stem.draw(ctx));
-        leaves.forEach(leaf => leaf.draw(ctx));
-        flowers.forEach(flower => flower.draw(ctx));
-        hearts.forEach(heart => heart.draw(ctx));
+        // Update and draw snowflakes (behind tree)
+        snowflakes.forEach(snowflake => {
+            snowflake.update();
+            snowflake.draw(ctx);
+        });
         
-        requestAnimationFrame(animateFlowers);
+        // Draw tree
+        tree.draw(ctx);
+        
+        // Draw cherry blossoms on tree
+        blossoms.forEach(blossom => blossom.draw(ctx));
+        
+        // Update and draw falling petals (in front)
+        fallingPetals.forEach(petal => {
+            petal.update();
+            petal.draw(ctx);
+        });
+        
+        requestAnimationFrame(animate);
     }
 
-    animateFlowers();
+    animate();
 }
