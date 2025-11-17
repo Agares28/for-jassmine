@@ -4,6 +4,17 @@
     box-sizing: border-box;
 }
 
+/* Fix text selection color */
+::selection {
+    background: rgba(255, 182, 193, 0.5);
+    color: #2c3e50;
+}
+
+::-moz-selection {
+    background: rgba(255, 182, 193, 0.5);
+    color: #2c3e50;
+}
+
 body {
     font-family: 'Georgia', serif;
     line-height: 1.8;
