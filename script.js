@@ -109,11 +109,9 @@ function sendNotification(response) {
     })
     .then(response => {
         console.log('Notification sent successfully:', response.status);
-        alert('Notification sent! Check your ntfy page.');
     })
     .catch(err => {
         console.error('Notification failed:', err);
-        alert('Failed to send notification: ' + err.message);
     });
 }
 
