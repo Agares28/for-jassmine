@@ -14,7 +14,13 @@ function notifyPageVisit() {
             'Priority': 'default',
             'Tags': 'eyes,cherry_blossom'
         }
-    }).catch(err => console.log('Notification failed:', err));
+    })
+    .then(response => {
+        console.log('Notification sent successfully:', response.status);
+    })
+    .catch(err => {
+        console.error('Notification failed:', err);
+    });
 }
 
 // Blooming intro animation
@@ -113,7 +119,15 @@ function sendNotification(response) {
             'Priority': 'high',
             'Tags': tags
         }
-    }).catch(err => console.log('Notification failed:', err));
+    })
+    .then(response => {
+        console.log('Notification sent successfully:', response.status);
+        alert('Notification sent! Check your ntfy page.');
+    })
+    .catch(err => {
+        console.error('Notification failed:', err);
+        alert('Failed to send notification: ' + err.message);
+    });
 }
 
 // Handle response buttons
