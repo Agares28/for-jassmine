@@ -218,44 +218,46 @@ class FallingPetal {
 // Create cherry blossom tree
 const tree = new Tree();
 
-// Create TONS of cherry blossoms for a full, lush tree
+// Create cherry blossoms - full but not overlapping
 const blossoms = [];
 
-// Generate dense clusters of blossoms across the entire canopy
-// Top layer - wide spread
-for (let x = 60; x <= 340; x += 15) {
-    for (let y = 70; y <= 110; y += 12) {
-        if (Math.abs(x - 200) < 150) {
+// Top layer - wide canopy
+for (let x = 70; x <= 330; x += 20) {
+    for (let y = 75; y <= 105; y += 18) {
+        const distance = Math.abs(x - 200);
+        if (distance < 140 && Math.random() > 0.2) {
+            blossoms.push(new CherryBlossom(
+                x + (Math.random() - 0.5) * 12,
+                y + (Math.random() - 0.5) * 10,
+                Math.random() * 0.4 + 1.3
+            ));
+        }
+    }
+}
+
+// Middle layer - fuller
+for (let x = 90; x <= 310; x += 18) {
+    for (let y = 105; y <= 155; y += 16) {
+        const distance = Math.abs(x - 200);
+        if (distance < 120 && Math.random() > 0.15) {
             blossoms.push(new CherryBlossom(
                 x + (Math.random() - 0.5) * 10,
                 y + (Math.random() - 0.5) * 8,
-                Math.random() * 0.8 + 1.8
+                Math.random() * 0.4 + 1.4
             ));
         }
     }
 }
 
-// Middle layer - dense
-for (let x = 80; x <= 320; x += 12) {
-    for (let y = 110; y <= 160; y += 10) {
-        if (Math.abs(x - 200) < 130) {
+// Lower layer - still dense
+for (let x = 130; x <= 270; x += 16) {
+    for (let y = 155; y <= 195; y += 15) {
+        const distance = Math.abs(x - 200);
+        if (distance < 80 && Math.random() > 0.2) {
             blossoms.push(new CherryBlossom(
-                x + (Math.random() - 0.5) * 8,
-                y + (Math.random() - 0.5) * 6,
-                Math.random() * 0.7 + 1.9
-            ));
-        }
-    }
-}
-
-// Lower layer - still full
-for (let x = 120; x <= 280; x += 12) {
-    for (let y = 160; y <= 200; y += 10) {
-        if (Math.abs(x - 200) < 90) {
-            blossoms.push(new CherryBlossom(
-                x + (Math.random() - 0.5) * 8,
-                y + (Math.random() - 0.5) * 6,
-                Math.random() * 0.6 + 1.7
+                x + (Math.random() - 0.5) * 10,
+                y + (Math.random() - 0.5) * 8,
+                Math.random() * 0.3 + 1.2
             ));
         }
     }
