@@ -82,13 +82,13 @@ window.addEventListener('scroll', () => {
 document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('mouseenter', function() {
         if (!this.classList.contains('message-card')) {
-            this.style.background = 'rgba(255, 255, 255, 1)';
+            this.style.background = 'rgba(255, 255, 255, 0.98)';
         }
     });
     
     card.addEventListener('mouseleave', function() {
         if (!this.classList.contains('message-card')) {
-            this.style.background = 'rgba(255, 255, 255, 0.9)';
+            this.style.background = 'rgba(255, 255, 255, 0.95)';
         }
     });
 });
