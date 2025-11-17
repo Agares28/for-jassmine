@@ -218,50 +218,56 @@ class FallingPetal {
 // Create cherry blossom tree
 const tree = new Tree();
 
-// Create cherry blossoms - full but not overlapping
+// Create cherry blossoms - scattered naturally along branches
 const blossoms = [];
 
-// Top layer - wide canopy
-for (let x = 70; x <= 330; x += 20) {
-    for (let y = 75; y <= 105; y += 18) {
-        const distance = Math.abs(x - 200);
-        if (distance < 140 && Math.random() > 0.2) {
-            blossoms.push(new CherryBlossom(
-                x + (Math.random() - 0.5) * 12,
-                y + (Math.random() - 0.5) * 10,
-                Math.random() * 0.4 + 1.3
-            ));
-        }
+// Function to add cluster of blossoms
+function addCluster(centerX, centerY, count, spread) {
+    for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * spread;
+        blossoms.push(new CherryBlossom(
+            centerX + Math.cos(angle) * distance,
+            centerY + Math.sin(angle) * distance,
+            Math.random() * 0.3 + 0.8
+        ));
     }
 }
 
-// Middle layer - fuller
-for (let x = 90; x <= 310; x += 18) {
-    for (let y = 105; y <= 155; y += 16) {
-        const distance = Math.abs(x - 200);
-        if (distance < 120 && Math.random() > 0.15) {
-            blossoms.push(new CherryBlossom(
-                x + (Math.random() - 0.5) * 10,
-                y + (Math.random() - 0.5) * 8,
-                Math.random() * 0.4 + 1.4
-            ));
-        }
-    }
-}
+// Top left branch clusters
+addCluster(100, 90, 12, 20);
+addCluster(110, 100, 10, 18);
+addCluster(90, 105, 8, 15);
 
-// Lower layer - still dense
-for (let x = 130; x <= 270; x += 16) {
-    for (let y = 155; y <= 195; y += 15) {
-        const distance = Math.abs(x - 200);
-        if (distance < 80 && Math.random() > 0.2) {
-            blossoms.push(new CherryBlossom(
-                x + (Math.random() - 0.5) * 10,
-                y + (Math.random() - 0.5) * 8,
-                Math.random() * 0.3 + 1.2
-            ));
-        }
-    }
-}
+// Top right branch clusters
+addCluster(300, 90, 12, 20);
+addCluster(290, 100, 10, 18);
+addCluster(310, 105, 8, 15);
+
+// Left side clusters
+addCluster(120, 115, 14, 22);
+addCluster(130, 125, 12, 20);
+addCluster(140, 140, 15, 24);
+addCluster(150, 155, 13, 22);
+addCluster(160, 170, 11, 20);
+
+// Right side clusters
+addCluster(280, 115, 14, 22);
+addCluster(270, 125, 12, 20);
+addCluster(260, 140, 15, 24);
+addCluster(250, 155, 13, 22);
+addCluster(240, 170, 11, 20);
+
+// Center top clusters
+addCluster(190, 175, 14, 22);
+addCluster(200, 170, 16, 25);
+addCluster(210, 175, 14, 22);
+
+// Lower middle clusters
+addCluster(170, 185, 12, 20);
+addCluster(180, 190, 10, 18);
+addCluster(220, 190, 10, 18);
+addCluster(230, 185, 12, 20);
 
 // Create falling petals
 const fallingPetals = [];
