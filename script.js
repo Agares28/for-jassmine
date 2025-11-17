@@ -78,20 +78,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Add interactive card effect
-document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        if (!this.classList.contains('message-card')) {
-            this.style.background = 'rgba(255, 255, 255, 0.98)';
-        }
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        if (!this.classList.contains('message-card')) {
-            this.style.background = 'rgba(255, 255, 255, 0.95)';
-        }
-    });
-});
+// Card hover effects removed to prevent white background issue
 
 // Function to send notification
 function sendNotification(response) {
