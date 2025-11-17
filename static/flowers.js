@@ -218,67 +218,48 @@ class FallingPetal {
 // Create cherry blossom tree
 const tree = new Tree();
 
-// Create cherry blossoms on branches - bigger and more clustered
-const blossoms = [
-    // Top left clusters
-    new CherryBlossom(100, 90, 2.5),
-    new CherryBlossom(105, 95, 2.2),
-    new CherryBlossom(110, 92, 2.3),
-    new CherryBlossom(95, 95, 2.0),
-    new CherryBlossom(108, 88, 2.1),
-    
-    // Top right clusters
-    new CherryBlossom(300, 90, 2.5),
-    new CherryBlossom(295, 95, 2.2),
-    new CherryBlossom(290, 92, 2.3),
-    new CherryBlossom(305, 95, 2.0),
-    new CherryBlossom(292, 88, 2.1),
-    
-    // Left side clusters
-    new CherryBlossom(120, 110, 2.4),
-    new CherryBlossom(125, 115, 2.1),
-    new CherryBlossom(130, 112, 2.2),
-    new CherryBlossom(118, 118, 2.0),
-    
-    new CherryBlossom(150, 140, 2.3),
-    new CherryBlossom(155, 145, 2.0),
-    new CherryBlossom(148, 148, 2.1),
-    new CherryBlossom(158, 142, 1.9),
-    
-    // Right side clusters
-    new CherryBlossom(280, 110, 2.4),
-    new CherryBlossom(275, 115, 2.1),
-    new CherryBlossom(270, 112, 2.2),
-    new CherryBlossom(282, 118, 2.0),
-    
-    new CherryBlossom(250, 140, 2.3),
-    new CherryBlossom(245, 145, 2.0),
-    new CherryBlossom(252, 148, 2.1),
-    new CherryBlossom(242, 142, 1.9),
-    
-    // Middle clusters
-    new CherryBlossom(155, 160, 2.2),
-    new CherryBlossom(160, 165, 2.0),
-    new CherryBlossom(165, 162, 2.1),
-    
-    new CherryBlossom(245, 160, 2.2),
-    new CherryBlossom(240, 165, 2.0),
-    new CherryBlossom(235, 162, 2.1),
-    
-    // Lower clusters
-    new CherryBlossom(165, 190, 2.1),
-    new CherryBlossom(170, 195, 1.9),
-    new CherryBlossom(175, 192, 2.0),
-    
-    new CherryBlossom(235, 190, 2.1),
-    new CherryBlossom(230, 195, 1.9),
-    new CherryBlossom(225, 192, 2.0),
-    
-    // Center top
-    new CherryBlossom(195, 180, 2.2),
-    new CherryBlossom(200, 175, 2.3),
-    new CherryBlossom(205, 180, 2.2),
-];
+// Create TONS of cherry blossoms for a full, lush tree
+const blossoms = [];
+
+// Generate dense clusters of blossoms across the entire canopy
+// Top layer - wide spread
+for (let x = 60; x <= 340; x += 15) {
+    for (let y = 70; y <= 110; y += 12) {
+        if (Math.abs(x - 200) < 150) {
+            blossoms.push(new CherryBlossom(
+                x + (Math.random() - 0.5) * 10,
+                y + (Math.random() - 0.5) * 8,
+                Math.random() * 0.8 + 1.8
+            ));
+        }
+    }
+}
+
+// Middle layer - dense
+for (let x = 80; x <= 320; x += 12) {
+    for (let y = 110; y <= 160; y += 10) {
+        if (Math.abs(x - 200) < 130) {
+            blossoms.push(new CherryBlossom(
+                x + (Math.random() - 0.5) * 8,
+                y + (Math.random() - 0.5) * 6,
+                Math.random() * 0.7 + 1.9
+            ));
+        }
+    }
+}
+
+// Lower layer - still full
+for (let x = 120; x <= 280; x += 12) {
+    for (let y = 160; y <= 200; y += 10) {
+        if (Math.abs(x - 200) < 90) {
+            blossoms.push(new CherryBlossom(
+                x + (Math.random() - 0.5) * 8,
+                y + (Math.random() - 0.5) * 6,
+                Math.random() * 0.6 + 1.7
+            ));
+        }
+    }
+}
 
 // Create falling petals
 const fallingPetals = [];
