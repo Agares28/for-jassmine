@@ -1,0 +1,11 @@
+{
+  "name": "cherry-blossom-site",
+  "version": "1.0.0",
+  "description": "Cherry blossom confession website",
+  "scripts": {
+    "start": "npx serve -s . -l 10000"
+  },
+  "dependencies": {
+    "serve": "^14.2.0"
+  }
+}
