@@ -1,7 +1,7 @@
 // Notify when someone visits the page
 function notifyPageVisit() {
     const timestamp = new Date().toLocaleString();
-    const message = `🌸 Someone opened your page at ${timestamp}`;
+    const message = `Someone opened your page at ${timestamp}`;
     
     console.log('PAGE VISIT:', message);
     
@@ -10,7 +10,7 @@ function notifyPageVisit() {
         method: 'POST',
         body: message,
         headers: {
-            'Title': '👀 Page Visited!',
+            'Title': 'Page Visited!',
             'Priority': 'default',
             'Tags': 'eyes,cherry_blossom'
         }
@@ -99,12 +99,12 @@ function sendNotification(response) {
     
     let message, title, tags;
     if (response === 'yes') {
-        message = `💕 She clicked "Okay, let's talk" at ${timestamp}`;
-        title = '✨ She wants to talk!';
+        message = `She clicked "Okay, let's talk" at ${timestamp}`;
+        title = 'She wants to talk!';
         tags = 'heart,tada,cherry_blossom';
     } else {
-        message = `⏰ She clicked "I need more time" at ${timestamp}`;
-        title = '🕐 She needs time';
+        message = `She clicked "I need more time" at ${timestamp}`;
+        title = 'She needs time';
         tags = 'clock,cherry_blossom';
     }
     
